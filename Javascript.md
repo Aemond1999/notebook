@@ -62,8 +62,6 @@ var 函数名  = function(形参1,形参2,...) {
 }
 ```
 
-
-
 ## 对象
 
 ### 创建对象
@@ -142,6 +140,16 @@ delete 对象.属性名
 
 检查自身对象是否含有某个方法或属性
 
+#### object.keys()
+
+返回对象的所有属性
+
+#### object.create(proto)
+
+创建一个空对象，令空对象的\__proto__指向参数
+
+
+
 ### 继承
 
 #### 原型链继承
@@ -200,6 +208,24 @@ function son(){
 son.prototype=object.create(father.prototype);
 ```
 
+### This指向
+
+```js
+在全局作用域中：this指向window
+
+在函数作用域中：
+1.普通函数中的this：this指向window 
+
+2.对象方法中的this：this就是调用方法的那个对象
+
+3.回调函数中的this：
+       1.作为对象方法调用回调函数：this将指向该对象
+       2.作为普通函数调用回调函数: this指向window 
+       
+4.箭头函数中的this：继承外部作用域的this
+      
+```
+
 ## Javascript常用对象和函数
 
 ### Array数组对象
@@ -229,12 +255,32 @@ call(),apply()和bind这两个方法都是函数对象的方法，需要通过�
 bind 会返回一个新的函数，目标函数在新函数调用时才会执行
 3.bind(函数内部的this的值,参数1,参数2,...)->newFunction
 
-//this指向
-在全局作用域中：this指向window
-在函数作用域中： 1.以函数的形式调用时：this指向window 
-                2.以方法的形式调用时：this就是调用方法的那个对象
-                3.回调函数的形式调用时：this指向window
 ```
+
+## 作用域
+
+```js
+//变量提升
+变量提升是指在代码执行阶段，变量声明（不包括赋值）会被提升到其作用域的最顶端
+
+//函数提升
+函数声明也会被提升到其作用域的顶部
+```
+
+
+
+```js
+//1.全局作用域
+全局变量是挂载在 window 对象下的变量，所以在网页中的任何位置都可以使用并且访问到这个全局变量。
+
+//2.函数作用域
+在 JavaScript 中，函数中定义的变量叫作函数变量，这种变量只能在函数内部才能访问到，所以它的作用域也就是函数的内部，在函数调用时创建，随着函数的运行结束而销毁。
+
+//3.块级作用域
+ES6 中新增了块级作用域，最直接的表现就是新增的 let 和 const 关键词，使用这两个关键词定义的变量只能在块级作用域中被访问,典型的块级作用域为if else，for循环
+```
+
+
 
 ## DOM
 
@@ -613,3 +659,134 @@ Window 对象的 screen 属性都引用一个 Screen 对象。Screen 对象中�
 | logicalYDPI          | 返回显示屏幕每英寸的垂直方向的常规点数     |
 | updateInterval       | 设置或返回屏幕的刷新率                     |
 | pixelDepth           | 返回显示屏幕的颜色分辨率（比特每像素       |
+
+## 闭包
+
+```js
+//简述
+```
+
+## 异常
+
+```js
+//1.异常对象属性
+1.name	    设置或返回异常类型
+2.message	设置或返回错误消息（一条字符串）
+
+//2.异常类型
+1.EvalError(废弃)	   在eval()函数中发生的错误，。更新版本的 JavaScript 不会抛出任何 EvalError
+2.RangeError	    发生超出数字范围的错误
+3.ReferenceError	发生非法引用，引用了尚未声明的变量
+4.SyntaxError	    发生语法错误
+5.TypeError	        发生类型错误
+4.URIError	        在 encodeURI() 中已发生的错误
+
+//3.异常捕获
+try {
+    // 可能发生异常的代码
+} catch (error) {
+    // 发生错误执行的代码
+} finally {
+    // 无论是否出错都会执行的代码
+}
+
+//4.异常抛出
+在大部分的代码执行过程中，都是出现错误的时候，由浏览器抛出异常，然后程序或者停止执行或被try…catch 捕获。然而有时候我们在检测到一些不合理的情况发生的时候也可以主动抛出错误，请使用 throw 关键字抛出来主动抛出异常。
+throw new TypeError("您输入的是一个非法数字！")
+
+//5.自定义异常
+function MyError(message) {
+    this.message = "注意：这是自定义的错误"
+    this.name = "自定义错误";
+}
+MyError.prototype = new Error();
+```
+
+ 
+
+## ES6新特性
+
+### Set
+
+```
+//属性和方法
+size：返回集合的元素个数
+add()：增加一个新元素，返回当前集合
+delete()：删除元素，返回 boolean 值
+has()：检测集合中是否包含某个元素，返回 boolean 值
+clear()：清空集合，返回 undefined
+keys():返回所有key
+values()：返回所有value
+```
+
+### Map
+
+```js
+//属性和方法
+size：返回 Map 的元素个数
+set(key,value)：增加一个新元素，返回当前 Map
+get(key)：返回键名对象的键值
+has(key)：检测 Map 中是否包含某个元素，返回 boolean 值
+clear()：清空集合，返回 undefined
+//遍历
+1. map.forEach((k,v) => {
+     console.log(k, v);}
+
+2. for (let [key, value] of map) {
+     console.log(key, value);}
+
+3.for (let key of map.keys()) {
+     console.log(map.get(key));
+ }
+4.for (let [key, value] of map.entries()) {
+     console.log(key, value);
+ }
+
+```
+
+### let
+
+```
+不允许重复声明
+块儿级作用域
+不存在变量提升
+```
+
+### rest参数
+
+用于获取函数的实参
+
+```js
+// rest 参数必须是最后一个形参
+function minus(a, b, ...args) {
+    console.log(a, b, args);
+}
+```
+
+### spread 扩展运算符
+
+也是三个点（…），它好比 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列，对数组进行解包
+
+### symbol
+
+```js
+//定义
+Symbol是ES6中新增的一种数据类型, 被划分到了基本数据类型中
+//特点
+Symbol 的值是唯一的，用来解决命名冲突的问题
+Symbol 值不能与其它数据进行运算
+Symbol 定义的对象属性不能使用 for…in遍历。无法通过,对象名.属性名，对象名["属性名"]的形式访问属性，但是可以通过对象名[属性名]的形式访问，可Object,getpropertySymbols()获取
+//使用
+let 变量名=Symbol("描述")
+```
+
+### 迭代器
+
+```js
+只有含有方法[Symbol.iterator]的对象才能被for of遍历,[Symbol.iterator]返回迭代器对象,迭代器对象中的next()指向下一个需要遍历的变量
+```
+
+
+
+
+
