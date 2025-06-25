@@ -135,6 +135,19 @@ random.shuffle(list)
 
 
 
+ ## 高阶函数
+
+```python
+#1.map(fun,Iterable)->Iterator
+将一个函数作用于可迭代对象中每一个元素
+
+#2.reduce(fun(x,y),iterable)
+reduce函数先从列表中取出2个元素执行指定函数，并将输出结果与第3个元素传入函数，输出结果再与第4个元素传入函数，…，以此类推，直到列表每个元素都取完
+
+#3.filter(fun,iterable)
+返回满足指定函数的序列
+```
+
 
 
 

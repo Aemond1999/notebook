@@ -5,7 +5,7 @@
 ### 创建Series
 
 ```python
-#series由两个部分组成：values(一维ndarray类型)，index(索引)
+#series由两个部分组成：values(一维ndarray类型)，index(索引,一维ndarray类型)
 pandas.Series(arr，index=[])
 -arr：数据容器/ndarray
 -index：指定索引(可选)
@@ -119,14 +119,14 @@ pandas.Series(arr，index=[])
    1.cond=np.all(df.notnull(), axis=1)
    2.print(df[cond])
 #3.删除缺失值所在行/列
-   DataFrame.dropna(axis, how, thresh, subset, inplace):删除缺失值所在的行/列
+   DataFrame.dropna(axis, how, thresh, subset, inplace)
    -axis:0代表删除包含缺失值的行,1代表删除包含缺失值的列,默认为行
    -how:'any'代表删除有缺失值的行/列;'all'代表删除所有值均缺失的行/列
    -thresh:指定非 Na 值的数量，非 Na 数量大于等于 thresh 时不删除
    -subset:输入一个含索引名称的list，代表对这些列的空值进行删除
    -inplace:是否改变原数组,默认False 即生成一个新数组
 #4.填充缺失值
-  DataFrame.fillna(value, method, axis, inplace):填充缺失值
+  DataFrame.fillna(value, method, axis, inplace)
   -value：填充的值，也可输入一个字典（用于为不同的列设置不同的填充值）
   -method：填充方法,“ffill”用前一行/列的值填充，“bfill”用后一行/列值填充,与axis搭配使用
   -axis：修改填充的轴,axis=0代表行,axis=1代表列
@@ -149,6 +149,7 @@ pandas.Series(arr，index=[])
 9.DataFrame.sort_values(列名):根据值排序
 10.DataFrame.sort_index():根据索引排序
 11.df.agg({"列名":聚合函数})
+12.df[["列1","列2"m...]].agg({"聚合函数",...})
 ```
 
 ### 删除重复值
@@ -157,11 +158,23 @@ pandas.Series(arr，index=[])
 1.DataFrame.drop_duplicates(subset, keep, inplace): 删除重复值所在行
   -subset：输入一个list，用来要操作的列，默认是所有列
   -keep：指定处理重复值的方法：“first” 指保留第一次出现的值，“last” 指保留最后一次出现的值
-        “False” 不保留重复值，全部删除\
+        “False” 不保留重复值，全部删除
     
 2.DataFrame.replace(被替换的元素，替换元素):元素替换
   注意：如果要一次替换多个不同的值，可以利用列表或者字典；如果想仅对某列替换，先利用df[]切片即可
 ```
+
+### 多级索引
+
+```python
+#设置多级索引
+multi_index=pd.MultiIndex.from_arrays({index1,index2})
+df.set_index(multi_index)
+#通过多级索引取值
+data.loc[(index1,index2)]
+```
+
+
 
 ### 数据映射
 

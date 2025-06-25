@@ -192,11 +192,6 @@ ndarray.flat
 ndarray.flatten(order)
 -order：'C'为 C 风格顺序，'F'为 F 风格顺序，'A'为保留原顺序。
 
-#4.这个函数返回展开的一维数组，并且按需生成副本。返回的数组和输入数组拥有相同数据类型。
-numpy.ravel(a, order)
--a:原数组
--order：'C'为 C 风格顺序，'F'为 F 风格顺序，'A'为保留原顺序。
-
 ```
 
 #### 数组反转
