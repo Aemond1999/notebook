@@ -5,7 +5,7 @@
 | 类型                     | 说明                                                         |
 | ------------------------ | ------------------------------------------------------------ |
 | 字符串型（String）       |                                                              |
-| 数值型（Number）         | 特殊数字：  Infinity：正无穷， -Infinity：，负无穷 NaN：非法数字（Not A Number） |
+| 数值型（Number）         | 特殊数字：  Infinity：正无穷， -Infinity：负无穷 ,NaN：非法数字 |
 | 布尔型（Boolean）        | 布尔型只能够取真（true）和假（false）两种数值                |
 | undefined型（Undefined） | 在使用 var 声明变量但未对其加以初始化时，这个变量的值就是 undefined。undefined值实际上是由null值衍生出来的，所以如果比较undefined和null是否相等，会返回true |
 | null型（Null）           | null表示的是一个空的对象                                     |
@@ -56,7 +56,7 @@ function 函数名(形参1,形参2,...) {
     语句...
 }
 
-//2.第二种方法(不推荐)
+//2.第二种方法，函数表达式写法(不推荐)
 var 函数名  = function(形参1,形参2,...) {
     语句....
 }
@@ -87,7 +87,7 @@ var 函数名  = function(形参1,形参2,...) {
 
 
 //第三种方式：构造方法
-     function Person(name,age){
+    function Person(name,age){
     this.name=name
     this.age=age
     this.fun=function(){
@@ -107,6 +107,14 @@ var 函数名  = function(形参1,形参2,...) {
 
 //2.删除属性
 delete 对象.属性名
+```
+
+### 检查自身对象是否含有某个方法或属性
+
+```js
+1.hasOwnProperty()
+2.in
+3.propertyIsEnumerable():只能检查可遍历属性
 ```
 
 ### 原型
@@ -136,19 +144,32 @@ delete 对象.属性名
 | Error    | 返回一个包含相关错误信息的字符串                             |
 | Function | 返回如下格式的字符串，其中 functionname 是一个函数的名称<br/>此函数的 toString 方法被调用： “function functionname() { [native code] }” |
 
-#### hasOwnProperty()
-
-检查自身对象是否含有某个方法或属性
-
-#### object.keys()
+#### Object.keys()
 
 返回对象的所有属性
 
-#### object.create(proto)
+#### Object.create(proto)
 
 创建一个空对象，令空对象的\__proto__指向参数
 
+#### Object.defineProperty()
 
+```js
+//向对象添加属性，属性不能被修改，不能被遍历
+defineProperty(对象,属性,{
+              value:值,
+              enumerable:false,//是否可便利
+           		writable:false,//是否可修改
+  						configurable:false//是否可删除
+  						get(){//当读取改属性时自动调用该函数
+  								return
+							}
+							set(value){//当修改该属性时自动调用该函数
+                
+              }
+               })
+
+```
 
 ### 继承
 
@@ -208,6 +229,8 @@ function son(){
 son.prototype=object.create(father.prototype);
 ```
 
+## this
+
 ### This指向
 
 ```js
@@ -226,23 +249,7 @@ son.prototype=object.create(father.prototype);
       
 ```
 
-## Javascript常用对象和函数
-
-### Array数组对象
-
-```js
-1.push()：向数组的末尾添加一个或多个元素
-2.pop()：删除并返回数组的最后一个元素
-3.unshift()：向数组开头添加一个或多个元素，并返回新的数组长度
-4.shift()：删除并返回数组的第一个元素
-5.slice(first,end)：切片
-6.splice()：删除并返回数组中的指定元素，该方法会影响到原数组，
-7.concat()：连接两个或多个数组，并将新的数组返回
-8.join("链接符号")：将数组转换为一个字符串，
-9.reverse()：反转数组，该方法会直接修改原数组
-```
-
-### 函数对象
+### apply()和call()
 
 ```js
 //apply()和call()
@@ -257,6 +264,58 @@ bind 会返回一个新的函数，目标函数在新函数调用时才会执行
 
 ```
 
+## Javascript常用对象和函数
+
+### Array
+
+```js
+1.push()：向数组的末尾添加一个或多个元素
+2.pop()：删除并返回数组的最后一个元素
+3.unshift()：向数组开头添加一个或多个元素，并返回新的数组长度
+4.shift()：删除并返回数组的第一个元素
+5.slice(first,end)：切片
+7.concat()：连接两个或多个数组，并将新的数组返回
+8.join("链接符号")：将数组转换为一个字符串，
+9.reverse()：反转数组，该方法会直接修改原数组
+
+10.splice(index,num,value):替换项目，index：起始位置，num：替换个数，value：替换的值
+11.splice(index,num):删除项目，index：起始位置，num：删除个数
+12.splice(indx,0,value)：插入值
+```
+
+### map()和filter()
+
+```js
+//array.map(function(currentValue, index, array){} ,[thisArg])
+}, thisArg);
+该函数用于对数组中的每个元素进行处理，将其转换为另一个值，最终返回一个新的数组
+1.currentValue：当前正在处理的元素
+2.index（可选）：当前元素的索引
+3.array（可选）：调用 map 的数组
+4.thisArg（可选）：执行回调时使用的 this 值
+
+
+//array.filter(function(currentValue, index, array) {}, thisArg);返回 true 保留该元素，false 则不保留
+
+1.currentValue：当前正在处理的元素
+2.index（可选）：当前元素的索引
+3.array（可选）：调用 map 的数组
+4.thisArg（可选）：执行回调时使用的 this 值
+```
+
+### String
+
+```js
+1.chatAt(index)：该方法可以根据索引获取指定位置的字符
+2.concat(str...)：该方法可以用来连接两个或多个字符串
+3.indexof(str)：该方法可以检索一个字符串中是否含有指定内容，如果字符串中含有该内容，则会返回其第一次出现的索引，如果没有找到指定的内容，则返回-1，可以指定一个第二个参数，指定开始查找的位置
+4.lastIndexOf(str)
+5.slice(start,end)方法演示：可以从字符串中截取指定的内容，不会影响原字符串，而是将截取到内容返回
+6.substring(start,end)
+7.split(sep):分割字符串
+8.toUpperCase()/toLowerCase()
+```
+
 ## 作用域
 
 ```js
@@ -264,10 +323,8 @@ bind 会返回一个新的函数，目标函数在新函数调用时才会执行
 变量提升是指在代码执行阶段，变量声明（不包括赋值）会被提升到其作用域的最顶端
 
 //函数提升
-函数声明也会被提升到其作用域的顶部
+函数声明也会被提升到其作用域的顶部，函数表达式除外
 ```
-
-
 
 ```js
 //1.全局作用域
@@ -280,17 +337,24 @@ bind 会返回一个新的函数，目标函数在新函数调用时才会执行
 ES6 中新增了块级作用域，最直接的表现就是新增的 let 和 const 关键词，使用这两个关键词定义的变量只能在块级作用域中被访问,典型的块级作用域为if else，for循环
 ```
 
+## 严格模式
 
+```js
+1.必须使用 var、let 或 const 声明变量
+2.不能删除变量、函数或不可删除的属性
+3.中不允许重复属性名
+4.函数参数不能重名
+5.全局函数中的 this 为 undefined 而非全局对象
+```
 
 ## DOM
 
-### window,document,html的关系
+### 简介
 
 ```js
-1.每个载入浏览器的 HTML 文档都会成为 Document 对象。由下图可以看出，document 是整个 DOM 树的根节点
-2.window是BOM中的一个对象
-3.document是DOM中的一个对象，同时也是BOM中的一个对象
-4.每个载入浏览器的 HTML 文档都会成为 Document 对象。由下图可以看出，document 是整个 DOM 树的根节点
+1.DOM 全称是 Document Object Model，也就是文档对象模型。提供操作页面元素的方法和属性
+2.DOM树是Web页面的模型，当浏览器加载一个Web页面时，它会创建这个页面的模型，称为DOM树。
+3.DOM树主要由4类主要节点组成：文档节点，元素节点，属性节点，文本节点。
 ```
 
 ### 文档操作
@@ -334,6 +398,17 @@ document.querySelector(CSS选择器)。
 //通过CSS选择器选择多个元素。
 document.querySelectorAll(CSS选择器)
 ```
+
+#### 不需要查找就能获取的元素节点
+
+```js
+1. document对象 —————  根节点
+2. document.documentElement对象  —————  <html>元素对象
+3. document.head对象  —————  <head>元素对象
+4. document.body对象 —————  <body>元素对象
+```
+
+
 
 #### 获取父子节点
 
@@ -402,15 +477,15 @@ html元素的 parentElement 是 null
 元素节点.innerHTML = new_htmlcontent
 
 //改变素的属性值。
-元素节点.属性 = new_value
-元素节点.setAttribute(attribute, new_value)	
+1.元素节点.属性 = new_value
+2.元素节点.setAttribute(attribute, new_value)	
 
 //改变元素的行内样式值。
 元素节点.style.样式 = new_style	
 
 ```
 
-#### 修改元素
+#### 创建元素
 
 ```js
 //创建元素节点。
@@ -423,6 +498,11 @@ document.createAttribute(attribute)
 
 //直接在元素节点上添加属性
 元素节点.setAttribute(attributename,attributevalue)
+
+//自定义属性的访问
+不允许直接用"元素节点.属性"的方式访问自定义属性，只能用getAttribute()
+当属性名为"data-**"的格式命名时，可以用元素节点.dataset.**的方式访问
+
 
 //创建文本节点。
 document.createTextNode(text)
@@ -702,7 +782,34 @@ function MyError(message) {
 MyError.prototype = new Error();
 ```
 
- 
+ ## localStorage和sessionStorage
+
+### localStorage 与 sessionStorage 的区别
+
+```js
+1.localStorage：数据的持久化程度高，即使用户关闭浏览器后，数据依然会被保留。除非显式删除，数据可以一直存在，适用于持久保存用户偏好设置、用户认证信息等需要长时间保存的数据。
+2.sessionStorage：数据仅在浏览器的会话期间有效。一旦关闭页面或标签页，数据就会被清除，适用于存储临时性的数据，如表单状态、页面之间的传递数据等
+
+```
+
+### localStorage和sessionLocal的用法
+
+localStorage和sessionStorage的方法基本一致
+
+```js
+//1.存储数据
+localStorage.setItem(key, value)
+//2.读取数据
+localStorage.getItem(key)
+//3.删除数据
+localStorage.removeItem(key)
+//4.清空所有数据
+localStorage.clear()
+//5.存储对象和数组
+localStorage.setItem('user', JSON.stringify(user));
+```
+
+
 
 ## ES6新特性
 
@@ -785,6 +892,241 @@ let 变量名=Symbol("描述")
 ```js
 只有含有方法[Symbol.iterator]的对象才能被for of遍历,[Symbol.iterator]返回迭代器对象,迭代器对象中的next()指向下一个需要遍历的变量
 ```
+
+### promise
+
+#### 简介
+
+```js
+//promise的属性
+1.PormiseState：状态
+2.PromiseResult：结果
+//promise的3种状态
+1.pending：准备中
+2.fulfilled：成功
+3.rejected：失败
+//promise状态改变,promise只能改变一次状态
+1.resolve():state->fullfilled
+2.reject():state->rejected
+//PromiseResult
+可通过在resolve(),reject()传参改变PromiseResult
+```
+
+#### then()
+
+```js
+//参数
+1.一个函数：成功时调用
+2.另一个函数：失败时调用
+ p.then((value)=>{
+   //PromseState==fullfilled时调用
+   //value==PromiseResult
+   return
+   //返回新promise实例的状态
+    },(reason)=>{
+   //PromiseState==rejected时调用
+   //reaon==PromiseResult
+    })
+//返回值
+返回一个新的promise实例
+```
+
+#### catch()
+
+```js
+//触发条件
+1.reject()
+2.代码出现错误
+```
+
+### 类
+
+```js
+//定义类
+class 类名 extends 父类{
+  //静态变量
+  static c='666'
+  //私有变量
+  #b
+	constructor(a,b){
+    super()
+    this.a=a
+    this.b=b
+  }
+	function(){}
+  static function(){}
+  get a(){
+    return 
+  }
+  set a(param){}
+  
+}
+let 实例名=new 类名(a,b)
+
+//类和ES5构造函数的区别
+1.类没有变量提升，必须先定义类再创建实例
+2.类的属性不能被for in public（默认） : 公有，可以在任何地方被访问。
+//访问控制修饰符
+1.public（默认） : 公有，可以在任何地方被访问。
+2.protected : 受保护，可以被其自身以及其子类访问。
+3.private : 私有，只能被其定义所在的类访问。遍历
+```
+
+### 数值扩展
+
+```js
+1.Number.isFinite(num):是否是有限数
+2.Number.isNaN(num)
+3.Number.isInteger(num)
+4.Number.isFloat(num)
+5.Math.trunc(num):向下取整
+```
+
+### 对象方法扩展
+
+```js
+1.Object.is(a,b):判断两个值是否相等
+2.Object.assign(obj1,obj2):对象合并，如果有相同属性，后面会覆盖掉前面
+3.Object.setPrototypeOf(obj1,obj2):将obj1的原型对象设置为obj2
+4.Object.getPrototypeOf(obj1)
+```
+
+### 模块化
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# TypeScript
+
+## 数据类型
+
+### Js数据类型
+
+```ts
+1.string
+2.number
+3.undefined
+4.null
+5.symbol
+6.bigint
+```
+
+### ts新增数据类型
+
+```ts
+1.Array
+2.tuple：元祖
+	元祖是一个明确元素数量以及每个元素类型的一个数组
+  let person:[string,number]
+3.enum：枚举
+	enum Direction {
+    Up=1,//默认从0自增
+    Down,
+    Left,
+    Right,
+}
+4.any:
+	任何值，会绕过类型检查，少用
+5.void：
+	用于函数，只允许返回undefined
+	函数若没有返回值默认返回undefined
+6.never：
+	用于函数，什么都不能返回，适用于不能正常结束的函数，例如抛出异常，无限循环
+7.unknown:
+	unknown与any一样，所有类型都可以分配给unknown。与any的最大区别是： 任何类型的值可以赋值给any，同时any类型	的值也可以赋值给任何类型。unknown 任何类型的值都可以赋值给它
+7.object：
+	object 表示非原始类型，也就是除 number ， string ， boolean 之外的类型
+8.Object
+	除undefined和null
+9.联合类型
+	表示可以是多种类型之一
+	let person:number|string
+10.字面量类型
+	字面量类型可以让变量只能拥有特定的值
+  let direction: "up" | "down" | "left" | "right"
+```
+
+## interface
+
+​	接口用来对对象或者类中的内容进行约束
+
+```ts
+//定义一个接口
+interface Person{
+	name:string
+	age?:number
+  work():void
+}
+//关键字
+	？：可选属性
+	readonly：只读属性
+//对象
+  let farmer:Person={
+    name:"jack",
+    age:50,
+    work() {
+        console.log("种田")
+    }
+}
+//类
+  class PoliceMan implements Person{
+    age: number;
+    name: string;
+    constructor(name:string,age:number) {
+        this.name=name
+        this.age=age
+    }
+    work(): void {
+        console.log("抓小偷")
+    }
+}
+  
+```
+
+## 泛型
+
+```ts
+//接口
+interface Person <T>{
+  name:T
+  age:T
+}
+//函数
+function<U,V> fun1(a:U,b:V)
+
+//类
+class Person<T>{
+  
+}
+
+//泛型约束
+<T extends Person>
+  
+//默认值
+  
+<T=string>
+```
+
+## 抽象类
+
+```ts
+abstract Person{
+  abstract word()
+}
+```
+
+
 
 
 

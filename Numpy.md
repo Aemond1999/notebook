@@ -21,15 +21,13 @@
 
 ```python
 #1.array()：从list, tuple对象中创建
-np.array(object, dtype=None, copy=True, order=’K’, subok=False, ndmin=0)
+np.array(object, dtype=None, ndmin=0)
 object — list或tuple对象。强制参数。
 dtype — 数据类型。可选参数。
-copy — 默认为True，对象被复制。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列；A - 如果输入为F则按列排列，否则按行排列；K - 保留按行和列排列。默认值为K。可选参数。
-subok — 默认为False，返回的数组被强制为基类数组。如果为True，则返回子类。可选参数。
 ndmin — 最小维数。可选参数。
+
 #2.asarray()：根据现有数组创建ndarray
-numpy.asarray(a, dtype = None, order = None)
+numpy.asarray(a, dtype = None)
 
 #3.fromstring()：从字符串中读取数据，并将其转换为一维数组。
 np.fromstring(string, dtype=float, count=-1, sep=”)
@@ -39,58 +37,52 @@ count — 从左到右读取数据的个数。默认为-1，表示读取所有�
 sep — 分隔符。
 
 #4.ones()：创建全1数组
-np.ones(shape, dtype=None, order=’C’)
+np.ones(shape, dtype=None)
 shape — 维度。强制参数。
 dtype — 数据类型。默认为np.float64。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列。默认值为C。可选参数。
 
 #5.ones_like()：创建与参数数组形状和类型相同的ndarray，并将数组中所有元素填充为1。
-np.ones_like(a, dtype=None, order=’K’, subok=True)
+np.ones_like(a, dtype=None)
 a — 给定的数组。其维度和数据类型决定着要创建的数组的属性。强制参数。
 dtype — 数据类型。默认的“None”意为“a.dtype”。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列；A - 如果输入为F则按列排列，否则按行排列；K - 保留按行和列排列。默认值为K。可选参数。
-subok — 默认为True，返回的数组被强制为子类数组。如果为False，则返回基类数组。可选参数。
 
 #6.zeros()：创建全0数组
-np.zeros(shape, dtype=float, order=’C’)
+np.zeros(shape, dtype=float,)
 shape — 维度。强制参数。
 dtype — 数据类型。默认为np.float64。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列。默认值为C。可选参数。
+
 
 #7.zeros_like()：创建与参数数组形状和类型相同的ndarray，并将数组中所有元素填充为0。
-np.zeros_like(a, dtype=None, order=’K’, subok=True)
+np.zeros_like(a, dtype=None)
 a — 给定的数组。其维度和数据类型决定着要创建的数组的属性。强制参数。
 dtype — 数据类型。默认的“None”意为“a.dtype”。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列；A - 如果输入为F则按列排列，否则按行排列；K - 保留按行和列排列。默认值为K。可选参数。
-subok — 默认为True，返回的数组被强制为子类数组。如果为False，则返回基类数组。可选参数。
+
 
 #8.empty()：返回一个没有初始化内存的数组，创建出来的全空数组中的数据都是无限小的、无限接近于0但不是0。
-np.empty(shape, dtype=float, order=’C’)
+np.empty(shape, dtype=float)
 shape — 维度。强制参数。
 dtype — 数据类型。默认为np.float64。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列。默认值为C。可选参数。
+
 
 #9.empty_like()：返回一个与给定数组的维度和数据类型相同的新数组。
-np.empty_like(a, dtype=None, order=’K’, subok=True)
+np.empty_like(a, dtype=None)
 a — 给定的数组。其维度和数据类型决定着要创建的数组的属性。强制参数。
 dtype — 数据类型。默认的“None”意为“a.dtype”。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列；A - 如果输入为F则按列排列，否则按行排列；K - 保留按行和列排列。默认值为K。可选参数。
-subok — 默认为True，返回的数组被强制为子类数组。如果为False，则返回基类数组。可选参数。
 
-#10.full()：返回一个指定维度和数据类型的新数组，并用指定的值填充, full_like()
-np.full(shape, fill_value, dtype=None, order=’C’)
+
+#10.full()：返回一个指定维度和数据类型的新数组，并用指定的值填充
+np.full(shape, fill_value, dtype=Non)
 shape — 维度。强制参数。
 fill_value — 填充值。强制参数。
 dtype — 数据类型。默认的“None”意为“np.array(fill_value).dtype”。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列。默认值为C。可选参数。
+
 
 #11.full_like()：返回一个与给定数组的维度和数据类型相同的新填充数组。
-np.full_like(a, fill_value, dtype=None, order=’K’, subok=True)
+np.full_like(a, fill_value, dtype=None)
 a — 给定的数组。其维度和数据类型决定着要创建的数组的属性。强制参数。
 fill_value — 填充值。强制参数。
 dtype — 数据类型。默认的“None”意为“np.array(fill_value).dtype”。可选参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列；A - 如果输入为F则按列排列，否则按行排列；K - 保留按行和列排列。默认值为K。可选参数。
-subok — 默认为True，返回的数组被强制为子类数组。如果为False，则返回基类数组。可选参数。
+
 
 #12.eye()：创建对角矩阵,返回一个矩阵（即二维数组），其对角线上均为1，其余位置均为0。
 eye(N, M=None, k=0, dtype)
@@ -99,21 +91,22 @@ M — 列数。默认值为None，意为“同N”。可选参数。
 k — 对角线索引。k=0，指主对角线；k为正整数，指从第k个值开始的右上对角线；k为负整数，指从第-k个值开始的左下对角线。可选参数。
 dtype — 数据类型。默认为浮点数。可选参数。
 
+
 #13.identity()：创建单位矩阵，即主对角线上为1而其余位置为0的方阵。
 identity(n, dtype=None)
 n — 行数和列数。即生成的是nxn的方阵。强制参数。
 dtype — 数据类型。默认为浮点数。可选参数。
 
-#14.copy()：浅拷贝
-copy(a, order=’K’)
+#14.copy()：深拷贝
+copy(a)
 a — 已知数组。强制参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列；A - 如果输入为F则按列排列，否则按行排列；K - 与数组a的排列尽可能接近。默认值为K。可选参数。
+
 
 #15.reshape()：改变数组的形状。通过reshape生成的新数组和原始数组共用一个内存，也就是说，若更改其中数组的元素，另一个数组也将发生改变。
-reshape(a, newshape, order=’C’)
+reshape(a, newshape)
 a — 已知数组。强制参数。
 newshape — 新的维度，为整数或由整数组成的元组。强制参数。
-order — 数组按一定的顺序排列。C - 按行；F - 按列；A - 如果输入为F则按列排列，否则按行排列；K - 与数组a的排列尽可能接近。默认值为C。可选参数。
+
 
 #16.创建等差数列数组 - arange()
 np.arange(start, stop, step, dtype=None)
@@ -121,6 +114,7 @@ start — 起始值（取得到）。默认值为0。可选参数。
 stop — 终止值（取不到）。强制参数。
 step — 步长。默认值为1。若指定step，则start值必须给出。可选参数。
 dtype — 数据类型。若不指定数据类型，则通过其他参数（如start, stop, step）判断。可选参数。
+
 
 #17.linspace() - 创建一个一维数组，在给定的区间上num等分。
 np.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None)
@@ -130,6 +124,14 @@ num — 等分的个数。默认值为50。可选参数。
 endpoint — 若为True（默认），则可以取到区间终止值；否则取不到。可选参数。
 retstep — 若为True，则返回由生成的数组和步长构成的元组；若为False（默认），则只返回生成的数组。可选参数。
 dtype — 数据类型。若不指定数据类型，则通过其他参数判断。可选参数。
+
+
+#18.rand() - 随机数组
+1.np.random.randint(low,high,size)
+low:起始值
+high：终止值（不包括）
+size：等同于shape
+2.np.random.rand(row,col)创建一个给定类型的数组，将其填充在一个均匀分布的随机样本[0, 1)。
 ```
 
 ### 索引
@@ -181,16 +183,14 @@ for x in np.nditer(a, order =  'F'):
 
 ```python
 #1.修改数组形状
-reshape(newshape, order) 
+reshape(newshape) 
 -newshape：新的形状应当兼容原有形状
--order：'C'为 C 风格顺序，'F'为 F 风格顺序，'A'为保留原顺序。
 
-#2.该函数返回数组上的一维迭代器，行为类似 Python 内建的迭代器。       
+#2.该函数返回数组上的一维迭代器
 ndarray.flat
 
 #3.该函数返回折叠为一维的数组副本      
-ndarray.flatten(order)
--order：'C'为 C 风格顺序，'F'为 F 风格顺序，'A'为保留原顺序。
+ndarray.flatten()
 
 ```
 
@@ -370,17 +370,15 @@ np.sin(a*np.pi/180)
 #### 排序函数
 
 ```python
-1.numpy.sort(a, axis, kind, order)
+1.numpy.sort(a, axis, kind)
 -a：要排序的数组
 -axis：沿着它排序数组的轴，如果没有数组会被展开，沿着最后的轴排序
 -kind：默认为'quicksort'（快速排序）.'quicksort'（快速排序）,'mergesort'（归并排序）	'heapsort'（堆排序）
--order：如果数组包含字段，则是要排序的字段
 
 2.numpy.argsort()：返回数据的索引数组,这个索引数组用于构造排序后的数组。
 -a：要排序的数组
 -axis：沿着它排序数组的轴，如果没有数组会被展开，沿着最后的轴排序
 -kind：默认为'quicksort'（快速排序）.'quicksort'（快速排序）,'mergesort'（归并排序）	'heapsort'（堆排序）
--order：如果数组包含字段，则是要排序的字段
 ```
 
 #### 查找函数

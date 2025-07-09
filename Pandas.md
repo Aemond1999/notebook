@@ -74,6 +74,8 @@ pandas.Series(arr，index=[])
   -axis:删除的轴向,默认为行，0代表删除行；1代表删除列
   -inplace:是否改变原数组,默认False 即生成一个新数组
 14.df['列名'] = df['列名'].astype('int')
+15.sort_values(by, axis=0, ascending = Ture, inplace = Flase, kind = ‘quicksort’,
+        na_position=‘last’,, ignore_index=False, key=None)
 ```
 
 ### 数据导入和导出
@@ -149,7 +151,7 @@ pandas.Series(arr，index=[])
 9.DataFrame.sort_values(列名):根据值排序
 10.DataFrame.sort_index():根据索引排序
 11.df.agg({"列名":聚合函数})
-12.df[["列1","列2"m...]].agg({"聚合函数",...})
+12.df[["列1","列2"...]].agg({"聚合函数",...})
 ```
 
 ### 删除重复值
