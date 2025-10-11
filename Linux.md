@@ -190,13 +190,13 @@ tail [-n number] 文件路径
 #### chmod：修改文件权限
 
 ```shell
-chmod 权限 文件路径
+chmod [-R] 权限 文件路径
 ```
 
 #### chown：修改文件所有者
 
 ```shell
-chown 用户名 文件路径
+chown [-R] 用户名 文件路径
 ```
 
 #### chgrp：修改文件所有组

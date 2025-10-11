@@ -1,4 +1,4 @@
-# Vue
+# Vue2
 
 ## 创建Vue实例
 
@@ -195,8 +195,6 @@ watch:{
 3.在getter/setter内部去操作（读或写）data中对应的属性
 ```
 
-
-
 ## v-show v- if 
 
 ```js
@@ -218,6 +216,153 @@ v-for="(value,index) in arr"
 //遍历对象
 v-for="(value,key,index) in obj"
 ```
+
+## 生命周期
+
+```js
+//beforeCreaate
+vue实例已经创建，数据监测和数据代理之前被调用
+此时无法访问 data、computed、methods 等
+//created
+可以通过Vm访问到data当中的数据、methods当中配置的方法，发送初始化渲染的请求。
+//beforeMount
+虚拟dom转换为真实dom之前
+//mounted
+虚拟dom转换为真实dom之后
+//beforeUpadte
+数据已经更新，页面还未更新
+//updated
+数据和页面保持一致
+//beforeDestroy
+vue销毁前
+vue.$destroy()调用后，vue销毁
+//destroyed
+
+```
+
+## 组件化
+
+### 多组件文件
+
+```js
+//创建组件
+const 临时组件名 = Vue.extend({
+  template:`<div>xxxx</div>`
+	data(){
+		return {}
+	}
+})
+//注册组件
+1.局部注册组件
+new Vue({
+  components:{
+    组件名:临时组件名
+  }
+	
+})
+2.全局注册组件
+Vue.components(组件名,临时组件名)
+//使用组件
+<组件名></组件名>
+```
+
+## vue项目结构
+
+```
+my-vue-project/
+├── node_modules/     # 项目依赖的第三方库 
+├── public/           # 静态资源（直接复制到构建输出目录）
+│   ├── favicon.ico   # 网站图标
+│   └── index.html    # 应用入口 HTML 模板
+├── src/              # 核心源码目录
+│   ├── assets/       # 静态资源
+│   ├── components/   # 可复用组件（如按钮、卡片等独立功能单元）
+│   ├── views/        # 页面级组件（路由对应的视图，如 Home.vue
+│   ├── router/       # 路由配置（定义路径与组件的映射）
+│   │   └── index.js  # 路由实例化文件 
+│   ├── store/        # 状态管理（Vuex 或 Pinia）
+│   │   └── index.js  # 状态仓库配置 
+│   ├── App.vue       # 根组件（包含路由视图 `<router-view>`）
+│   └── main.js       # 入口文件（初始化 Vue 实例并挂载）
+├── .env              # 环境变量配置
+├── package.json      # 项目元数据、依赖和脚本命令f)
+└── vite.config.js    # Vite 配置文件（代理、别名等
+```
+
+## 过滤器
+
+```js
+//全局过滤器
+Vue.filter('过滤器名字',function(value){
+
+})
+//局部过滤器
+ filters:{
+   过滤器名(value){}
+ }
+```
+
+## ref
+
+```js
+1、ref 加在普通的元素上，用this.$ref.name 获取到的是dom元素
+2、ref 加在子组件上，用this.$ref.name 获取到的是组件实例
+```
+
+## props
+
+```js
+//简介
+Props 是 Vue 组件之间通信的一种方式，通过 Props，父组件可以向子组件传递数据，props中的属性不能被修改,props优先级大与data中的属性
+//使用
+1.方式一
+	export default{
+  	props:["属性1",...]
+	}
+2.方式二
+	export default{
+		props:{
+          "属性1":属性类型
+		}
+}
+3.方式三
+	export default{
+		props:{
+          "属性1":{
+            type:属性类型,
+            require:是否必要,
+            default:默认值  
+          }
+			}
+}
+      
+```
+
+## mixin
+
+
+
+## 插件
+
+### 定义插件
+
+```js
+export default{
+  install(Vue){ 
+  }
+}
+```
+
+### 使用插件
+
+```js
+import plugins from "XXX"
+Vue.use(plugins)
+```
+
+
+
+
 
 
 

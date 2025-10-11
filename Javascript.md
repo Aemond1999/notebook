@@ -7,7 +7,7 @@
 | 字符串型（String）       |                                                              |
 | 数值型（Number）         | 特殊数字：  Infinity：正无穷， -Infinity：负无穷 ,NaN：非法数字 |
 | 布尔型（Boolean）        | 布尔型只能够取真（true）和假（false）两种数值                |
-| undefined型（Undefined） | 在使用 var 声明变量但未对其加以初始化时，这个变量的值就是 undefined。undefined值实际上是由null值衍生出来的，所以如果比较undefined和null是否相等，会返回true |
+| undefined型（Undefined） | 在使用 var 声明变量但未对其加以初始化时，这个变量的值就是 undefined。undefined值实际上是由null值衍生出来的，所以如果比较undefined和null是否==，会返回true |
 | null型（Null）           | null表示的是一个空的对象                                     |
 
 ### 类型转换
@@ -46,9 +46,34 @@
 4.对象也会转换为true
 ```
 
-## 函数
+### for
 
-### 创建函数
+```js
+1.for in
+  for in循环由于历史遗留问题，它遍历的实际上是对象的属性名称。一个Array数组实际上也是一个对象，它的每个元素的索引被视为一个属性
+2.for of
+3.foreach()
+a.forEach(function (element, index, array) {
+    // element: 指向当前元素的值
+    // index: 指向当前索引
+    // array: 指向Array对象本身
+    console.log(`${element}, index = ${index}`);
+});
+
+Set与Array类似，但Set没有索引，因此回调函数的前两个参数都是元素本身：
+let s = new Set(['A', 'B', 'C']);
+s.forEach(function (element, sameElement, set) {
+    console.log(element);
+});
+
+Map的回调函数参数依次为value、key和map本身：
+let m = new Map([[1, 'x'], [2, 'y'], [3, 'z']]);
+m.forEach(function (value, key, map) {
+    console.log(value);
+});
+```
+
+## 函数
 
 ```js
 //1.第一种方法
@@ -60,6 +85,11 @@ function 函数名(形参1,形参2,...) {
 var 函数名  = function(形参1,形参2,...) {
     语句....
 }
+//3.arguments
+JavaScript还有一个免费赠送的关键字arguments，它只在函数内部起作用，并且永远指向当前函数的调用者传入的所有参数。arguments类似Array但它不是一个Array。
+//4.rest
+为了获取除了已定义参数a、b之外的参数，我们不得不用arguments，并且循环要从索引2开始以便排除前两个参数，这种写法很别扭，ES6标准引入了rest参数
+function foo(a, b, ...rest)
 ```
 
 ## 对象
@@ -155,19 +185,19 @@ delete 对象.属性名
 #### Object.defineProperty()
 
 ```js
-//向对象添加属性，属性不能被修改，不能被遍历
+//向对象添加属性，
 defineProperty(对象,属性,{
               value:值,
-              enumerable:false,//是否可便利
+              enumerable:false,//是否可遍历
            		writable:false,//是否可修改
   						configurable:false//是否可删除
   						get(){//当读取改属性时自动调用该函数
   								return
 							}
 							set(value){//当修改该属性时自动调用该函数
-                
               }
                })
+            
 
 ```
 
@@ -342,7 +372,7 @@ ES6 中新增了块级作用域，最直接的表现就是新增的 let 和 cons
 ```js
 1.必须使用 var、let 或 const 声明变量
 2.不能删除变量、函数或不可删除的属性
-3.中不允许重复属性名
+3.对象中不允许重复属性名
 4.函数参数不能重名
 5.全局函数中的 this 为 undefined 而非全局对象
 ```
@@ -855,8 +885,8 @@ clear()：清空集合，返回 undefined
 
 ```
 不允许重复声明
-块儿级作用域
-不存在变量提升
+块级作用域
+不存在变量提升：JavaScript的函数定义有个特点，它会先扫描整个函数体的语句，把所有用var申明的变量“提升”到函数顶部，不会提升变量的赋值
 ```
 
 ### rest参数
@@ -992,6 +1022,42 @@ let 实例名=new 类名(a,b)
 ```
 
 ### 模块化
+
+#### 导出
+
+```js
+//方式一：分别暴露
+export let school = "北京大学";
+export function study() {
+    console.log("我们要学习！");
+}
+
+//方式二：统一暴露
+let school = "北京大学";
+function findJob() {
+    console.log("我们要找工作！");
+}
+export {school, findJob};
+
+//方式三：默认暴露
+export default {
+    school: "北京大学",
+    change: function () {
+        console.log("我们要改变自己！");
+    }
+}
+```
+
+#### 导入
+
+```js
+//方式一
+import * as m1 from "./m1.js";
+//方式二
+import{school,study} from "./m1.js"
+//方式三（只适用于默认暴露）
+import m1 from "./m1.js"
+```
 
 
 
