@@ -9,7 +9,6 @@ git config --glbobal user.email='邮箱'
 或者直接在.gitconfig文件中修改
 #2.生成ssh
 ssh-keygen -t rsa -C "注册github的邮箱"
-
 ```
 
 ## 基本操作

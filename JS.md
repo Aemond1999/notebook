@@ -321,12 +321,322 @@ son.prototype.constructor=son
 5.箭头函数不能用作Generator函数
 ```
 
-## 闭包
+## DOM
+
+### 节点
+
+```js
+//节点类型							//nodeName							//nodeValue           //nodeType
+	元素节点								元素名										null									1
+	属性节点								属性名										属性值									2
+  文本节点								#text										文本									3
+  document 							#document								null									9
+```
+
+### 获取元素
+
+```js
+//通过元素id 来查找元素。
+document.getElementById(id)
+//通过标签名来查找元素
+document.getElementsByTagName(name)	
+//通过类名来查找元素
+document.getElementsByClassName(name)
+//通过CSS选择器选择一个元素
+document.querySelector(CSS选择器)。
+//通过CSS选择器选择多个元素。
+document.querySelectorAll(CSS选择器)
+
+//可直接获取的元素
+1. document对象 —————  根节点
+2. document.documentElement对象  —————  <html>元素对象
+3. document.head对象  —————  <head>元素对象
+4. document.body对象 —————  <body>元素对象
+
+
+//获取父子节点
+1.获得一个元素对象的父级元素对象
+元素对象.parentElement —— 返回一个元素对象
+
+2.获得一个元素对象下的所有直接子元素对象的集合
+元素对象.children —— 返回类数组对象
+
+3.获得一个元素对象下的第一个直接子元素对象
+元素对象.firstElementChild —— 返回一个元素对象
+
+4.获得一个元素对象下的最后一个直接子元素对象
+元素对象.lastElementChild—— 返回一个元素对象
+
+//获取兄弟节点
+1.获得一个元素对象相邻的前一个兄弟元素对象
+元素对象.previousElementSibling
+
+2.获得一个元素对象相邻的下一个兄弟元素对象
+元素对象.nextElementSibling
+```
+
+### 获取元素的值
+
+```js
+//获取元素所有的文本内容，包括文本节点，子元素和后代元素的文本节点
+元素节点.innerText
+
+//获取元素所有的文本节点，注释节点，元素节点等内容。
+元素节点.innerHTML。
+
+//获取元素的属性值
+元素节点.属性
+元素节点.getAttribute(属性)
+//获取元素的行内(重点！！！)样式值。
+元素节点.style.样式	
+```
+
+### 改变元素节点的值
+
+```js
+//该变元素的 innerText。
+元素节点.innerText = new_textcontent
+
+//改变元素的 innerHTML。
+元素节点.innerHTML = new_htmlcontent
+
+//改变素的属性值。
+1.元素节点.属性 = new_value
+2.元素节点.setAttribute(attribute, new_value)	
+
+//改变元素的行内样式值。
+元素节点.style.样式 = new_style	
+```
+
+### 创建节点
+
+```js
+1.document.createElement(element)	创建 HTML 元素节点。
+2.document.createAttribute(attribute)	创建 HTML 属性节点。
+3.document.createTextNode(text)	创建 HTML 文本节点。
+
+4.元素节点.removeChild(element)	删除 HTML 元素。
+5.元素节点.appendChild(element)	添加 HTML 元素。
+6.元素节点.insertBefore(newChild，Child)	在指定的子节点前面插入新的子节点
+```
+
+### 事件
+
+#### 窗口事件
+
+```js
+适用于widow or body
+1.onblur	当窗口失去焦点时运行脚本。
+2.onfocus	当窗口获得焦点时运行脚本。
+3.onload	当文档加载之后运行脚本。
+4.onresize	当调整窗口大小时运行脚本。
+5.onstorage	当 WebStorage 区域更新时（存储空间中的数据发生变化时）运行脚本
+```
+
+#### 鼠标事件
+
+| 事件         | 说明                                 |
+| ------------ | ------------------------------------ |
+| onclick      | 单击鼠标                             |
+| ondblclick   | 双击鼠标                             |
+| onmousedown  | 按下鼠标按钮                         |
+| onmouseup    | 松开鼠标按钮                         |
+| onmousemove  | 鼠标指针移动                         |
+| onmouseover  | 鼠标指针移至元素之上(不可以阻止冒泡) |
+| onmouseout   | 当鼠标指针移出元素(不可以阻止冒泡)   |
+| onmouseenter | 鼠标指针移至元素之上(可以阻止冒泡)   |
+| onmouseleave | 鼠标指针移出元素(可以阻止冒泡)       |
+| onmousewheel | 转动鼠标滚轮                         |
+| onscroll     | 滚动元素的滚动条                     |
+
+#### 键盘事件
+
+| 属性       | 描述                         |
+| ---------- | ---------------------------- |
+| onkeydown  | 当按下按键时运行脚本。       |
+| onkeyup    | 当松开按键时运行脚本。       |
+| onkeypress | 当按下并松开按键时运行脚本。 |
+
+#### 事件监听
+
+```js
+//传统事件绑定
+element.onclick=function(enent){}
+缺点：同一种事件只能绑定一次
+
+//监听器
+1.element.addEventListener(tpye,listener,useCapture)
+-type:事件类型去掉"on"
+-listener:处理函数
+-userCapture:true:事件在捕获阶段执行;
+						false:事件在冒泡阶段执行，默认是false
+2.事件解绑
+element.reomveEventListener(tpye,listener)
+```
+
+#### 事件对象 event
+
+```js
+//简述
+事件发生后，跟事件有关的一系列信息的集合都放到整个对象里面
+//属性以及方法
+type                                  获取事件类型（例如，“click”、"mousedown"等）             
+target                               	获取触发事件的元素                                         
+currentTarget                        	获取绑定了事件的元素                                       
+clientX和clientY                   		获取鼠标光标的坐标                                         
+key                                  	在键盘事件中，key 属性返回按下的具体字符                   
+altKey、ctrlKey、shiftKey 和 metaKey 	这些属性用于判断事件触发时是否按下了特定的修饰键  
+button             用于鼠标事件中，表示按下了哪个鼠标按钮。常见的取值包括(0：左键;1：中键（滚轮）;2：右键) 
+preventDefault()                     用于阻止事件的默认行为（阻止链接跳转）                         
+stopPropagation()                    阻止冒泡   
+cancelBubble = true                  阻止冒泡   
+```
+
+## BOM
+
+### window
+
+#### 弹出框
+
+```` js
+//1.警告框
+alert("message")
+//2.确认框
+confirm("message")->boolean
+//3.提示框
+prompt("sometext","defaultText");
+如果用户单击“确定”，该框返回输入值。如果用户单击“取消”，该框返回 NULL。
+````
+
+#### 定时
+
+```js
+//在等待指定的毫秒数后执行函数
+setTimeout(function, milliseconds)
+//等同于 setTimeout()，但持续重复执行该函数
+setInterval(function, milliseconds)
+```
+
+#### 窗口属性
+
+```js
+浏览器窗口（浏览器视口）不包括工具栏和滚动条
+1.window.innerHeight - 浏览器窗口的内高度（以像素计）
+2.window.innerWidth - 浏览器窗口的内宽度（以像素计）
+对于 Internet Explorer 8, 7, 6, 5：
+1.document.documentElement.clientHeight
+2.document.documentElement.clientWidth
+```
+
+## 异常
+
+### Error对象
+
+```js
+//对象属性
+1.name
+2.message
+//name取值
+1.SyntaxError	    
+语法错误，这类错误通常在代码解析/编译阶段就会发生，无法通过 try-catch 捕获（因为代码根本执行不了）
+2.TypeError
+	调用未定义的函数
+	访问 null 的属性
+	改变常量值
+3. ReferenceError 
+引用一个未声明的变量时抛出
+4.RangeError 
+范围错误
+5.URIError
+decodeURIComponent(), encodeURI()出现错误
 
 ```
-//定义
+
+### 自定义异常
+
+```js
+function MyError(message) {
+    this.message = "注意：这是自定义的错误"
+    this.name = "自定义错误";
+}
+MyError.prototype = new Error();
+
+try {
+    throw new MyError("注意：这是自定义错误类型")
+} catch (error) {
+    console.log(error.message)
+}
+```
+
+## Date
+
+```js
+//创建 Date
+1.Date(year,month,date,hour,minute,second,millisecond)
+2.Date(时间戳)
+//
+getFullYear(); // 2015, 年份
+getMonth(); // 5, 月份，注意月份范围是0~11，5表示六月
+getDate(); // 24, 表示24号
+getDay(); // 3, 表示星期三
+getHours(); // 19, 24小时制
+getMinutes(); // 49, 分钟
+getSeconds(); // 22, 秒
+getMilliseconds(); // 875, 毫秒数
+getTime(); // 1435146562875, 以number形式表示的时间戳
+//获取时间戳
+1.Date.now()
+2.new Date().getTime()
+3.Date.parse('2015-06-24T19:49:22.875+08:00');
+//时区
+let d = new Date(1435146562875);
+d.toLocaleString(); // '2015/6/24 下午7:49:22'，本地时间（北京时区+8:00），显示的字符串与操作系统设定的
+d.toUTCString(); // 'Wed, 24 Jun 2015 11:49:22 GMT'，UTC时间，与本地时间相差8小时
+```
+
+## localstore
+
+```js
+保存单个数据：localStorage.setItem(key,value);
+读取单个数据：localStorage.getItem(key);
+删除单个数据：localStorage.removeItem(key);
+删除所有数据：localStorage.clear();
+获取某个索引的key：localStorage.key(index);
+```
+
+## ES6
+
+### Symbol
+
+```js
+//作用
+用于表示一个独一无二的值,避免覆盖框架同名
+
+//特点
+1.只能转化为string or boolean
+String(name)=Symbol("name")
+2.不能用for in遍历
+3.只能用obj[name]访问属性,不能用obj.
+4.不能做运算
+//使用
+let name=Symbol("标识符") 标识符仅用于区分,无作用
+let obj={
+  [name]:"xxx"
+}
+//遍历symbol
+Object.getOwnPropertySymbols(obj) ：返回对象中只包含 symbol 类型 key 的数组
+Reflect.ownKeys(obj) ：返回对象中所有类型 key 的数组（包含 symbol）
+Object.getOwnPropertyDescriptors(obj)：返回对象中常规和符号属性描述符对象
 
 ```
+
+
+
+## AJAX
+
+
+
+
 
 
 

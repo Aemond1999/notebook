@@ -480,7 +480,7 @@ html元素的 parentElement 是 null
 元素节点.nextElementSibling	
 ```
 
-#### 获取元素节点的值
+#### 获取节点的值
 
 ```js
 //获取元素所有的文本内容，包括文本节点，子元素和后代元素的文本节点
@@ -492,12 +492,11 @@ html元素的 parentElement 是 null
 //获取元素的属性值
 元素节点.属性
 元素节点.getAttribute(属性)
-
 //获取元素的行内(重点！！！)样式值。
 元素节点.style.样式	
 ```
 
-#### 改变元素的值
+#### 改变节点的值
 
 ```js
 //该变元素的 innerText。
@@ -515,7 +514,7 @@ html元素的 parentElement 是 null
 
 ```
 
-#### 创建元素
+#### 创建节点
 
 ```js
 //创建元素节点。
@@ -525,9 +524,6 @@ document.createElement(element)
 document.createAttribute(attribute)	
 属性节点.value = 属性值
 元素节点.setAttributeNode(属性节点)
-
-//直接在元素节点上添加属性
-元素节点.setAttribute(attributename,attributevalue)
 
 //自定义属性的访问
 不允许直接用"元素节点.属性"的方式访问自定义属性，只能用getAttribute()
@@ -634,7 +630,7 @@ element.onclick=function(enent){}
 1.element.addEventListener(tpye,listener,useCapture)
 -type:事件类型
 -listener:处理函数
--userCapture:true - 事件在捕获阶段执行;false - 事件在冒泡阶段执行，默认是false
+-useCapture:true - 事件在捕获阶段执行;false - 事件在冒泡阶段执行，默认是false
 2.事件解绑
 element.reomveEventListener(tpye,listener)
 ```

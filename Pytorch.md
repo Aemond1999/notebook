@@ -87,11 +87,11 @@ num_workers (可选): 用于数据加载的子进程数量。默认为0，意味
 7.torch.argmax(x, dim)	返回最大值的索引（指定维度
 8.torch.softmax(x, dim)	计算 softmax（指定维度）
 9.x.reshape(shape)   
-10.x.unsqueeze(dim)			在指定维度添加一个维度。
-11.x.squeeze(dim)				去掉指定维度为 1 的维度。
 12.torch.cat((x, y), dim)	按指定维度连接多个张量。
 13.x.flatten()           将张量展平成一维
 14.x.numpy()	           将张量转换为 NumPy 数组（仅限 CPU 张量）
+15.x.zero_()							归零
+16.A.item()								将Tensor转化为基本数据类型，注意Tensor中只有一个元素的时候才可以使用
 ```
 
 ### 比较/排序运算
@@ -150,7 +150,7 @@ clamp(A,B) 将张量的值限制在A与B之间
 ### 拼接
 
 ```py
-1.torch.cat((a,b),dim)
+1.torch.cat((a,b),dim) 										不会增加新的维度
 2.torch.stack((a,b),dim)
 ```
 
@@ -170,12 +170,64 @@ clamp(A,B) 将张量的值限制在A与B之间
 4.torch.inbind(input,dim)去除指定维度
 ```
 
-### autpgrad
+### 使用Gpu
+
+```py
+
+# 测试GPU环境是否可使用
+print(torch.__version__) # pytorch版本
+print(torch.version.cuda) # cuda版本
+print(torch.cuda.is_available()) # 查看cuda是否可用
+ 
+#使用GPU or CPU
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+ 
+# 判断某个对象是在什么环境中运行的
+a.device
+ 
+# 将对象的环境设置为device环境
+A = A.to("cpu or cuda")
+ 
+# 将对象环境设置为COU
+A.cpu().device
+ 
+# 若一个没有环境的对象与另外一个有环境a对象进行交流,则环境全变成环境a
+a+b.to(device)
+ 
+# cuda环境下tensor不能直接转化为numpy类型,必须要先转化到cpu环境中
+a.cpu().numpy()
+ 
+# 创建CUDA型的tensor
+torch.tensor([1,2],device)
+```
+
+### 自动求导
 
 ```
-1.torch.autograd.backward(...)
--tensor:用于计算梯度
--grad_tensor:若tensor是一个张量，需要提供一个size一样的tensor
--
+x.requires_grad_(True)  # 等价于x=torch.arange(4.0,requires_grad=True)
+                        # 实质是申明变量x需要计算梯度，因此框架会为其分配空间
+x.grad									# x的梯度
+在默认情况下，PyTorch会将新梯度的累加在上一次计算的梯度上，所以我们需要调用 zero_ 方法将梯度值清零。
 ```
+
+## CNN
+
+```py
+#创建卷积层
+torch.nn.Conv2d(in_channels=3, out_channels=16, kernel_size=5, stride=1, padding=0)
+#激活函数
+torch.nn.Sigmoid() + ReLU() + softmax()
+#池化
+torch.nn.MaxPool2d(kernel_size=2, stride=1, padding=0)
+torch.nn.AvgPool2d(kernel_size=2, stride=1, padding=0)
+#全连接层
+	torch.nn.Linear(n_hidden, classification_num)
+#损失函数
+1.torch.nn.CrossEntropyLoss(weight=None, size_average=None, ignore_index=-100, reduce=None, reduction='mean')
+2.torch.nn.MSELoss(size_average=None, reduce=None, reduction='mean')
+#正则化
+torch.nn.Dropout(p)
+```
+
+
 

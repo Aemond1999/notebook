@@ -1,22 +1,51 @@
 # CSS
 
+## 三大特性
+
+```js
+//继承性
+​字体相关属性​：
+font-family
+font-size
+font-weight
+font-style
+font-variant
+font（简写）
+​文本相关属性​：
+color
+text-align
+text-indent
+text-transform
+letter-spacing
+word-spacing
+line-height
+direction
+white-space
+​列表相关属性​：
+list-style-type
+list-style-position
+list-style-image
+list-style（简写）
+​其他​：
+visibility
+cursor
+quotes
+//优先性
+优先级用于确定当多个选择器同时作用于同一个元素时，哪个规则最终生效
+!important
+内联样式
+id
+class 属性 伪类
+标签 伪元素
+通配符 继承
+//层叠性
+```
+
+
+
 ## 选择器
 
 ```css
-<div class="father" id="father">
-	<div class="son">
-		<div class="grand-son">
-
-		</div>
-	</div>
-
-	<div class="son">
-	</div>
-
-  <div class="son">
-	</div>
-</div>
-
 //第一种：类选择器
 .father{}
 
@@ -26,13 +55,13 @@
 //第三种：标签选择器
 div{}
 
-//第四种：群组选择器
+//第四种：组合选择器
 #father,.son,div{}
 
 //第五种：后代选择器
 .father div{}
 
-//第六种：子代选择器,选择所以子元素，而非所有后代元素
+//第六种：子代选择器,选择所有子元素，而非所有后代元素
 .father>div{}
 
 //第七种：兄弟选择器:会选择所有兄弟元素
@@ -54,7 +83,7 @@ n的取值
 3.even/2n： 选择序号为偶数的元素
 4.an+b：a：周期长度，b：偏移量，n：从0开始的计数器（0, 1, 2, 3...）
 
-//第十种：动态伪类选择器
+//第十种：伪类选择器
 :link 超链接未被访问的状态
 :visited 超链接访问过的状态
 :hover 鼠标悬停在元素上的状态
@@ -64,7 +93,7 @@ n的取值
 //第十一种：否定伪类
 :not(选择器)：排除满足括号中条件的元素
 
-//第十二种：ui伪类
+//第十二种：结构伪类
 :checked  被选中的复选框或单选按钮
 :enable   可用的表单元素（没有 disabled 属性）
 :disabled 不可用的表单元素（有 disabled 属性）
@@ -77,9 +106,15 @@ n的取值
 ::before 在元素最开始的位置，创建一个子元素（必须用 content 属性指定内容）
 ::after 在元素最后的位置，创建一个子元素（必须用 content 属性指定内容
 
+//属性选择器
+1.[属性]
+2.[属性=""]
+3.[属性^=""] 	属性以字符串开头
+4.[属性$=""] 	属性以字符串结尾
+5.[属性*=""]	属性包含字符串
 ```
 
-## 字体属性 font
+## 字体属性 
 
 | 属性        | 含义       | 取值                                                         |
 | ----------- | ---------- | :----------------------------------------------------------- |
@@ -87,7 +122,7 @@ n的取值
 | font-weight |            | normal:普通（默认）<br/>bold:粗体<br/>数字                   |
 | font-family | 字体       | 一般建议写3种字体：首选,其次,备用。以逗号隔开                |
 | font-style  |            | normal:普通(默认)<br/>italic:斜体                            |
-| font        | 简写       | font:font-style font-weight font-size font-family            |
+| font        | 简写       | font:font-style font-weight font-size/line-height font-family |
 
 ## 文本属性
 
@@ -100,6 +135,10 @@ n的取值
 | text-transform  | 字母大小写转换 | lowercase、uppercase、capitalize(首字母大写)                 |
 | letter-spacing  | 字符间距       | px:像素<br/>em：间距为标签字体个数                           |
 | word-spacing    | 单词间距       | 只对英文有效                                                 |
+
+line-height只作用于inline-block，iinline元素，line-height=上下半行距+font-size
+
+<img src="images/line-height.png"  />
 
 ## 元素类型
 
@@ -147,6 +186,15 @@ n的取值
 | background-size       | 背景图大小         | cover：时高度和宽度等比例拉伸，以使背景图像完全覆盖背景区域。背景图像的某些部分也许无法显示在背景定位区域中。<br/>contain：高度和宽度等比例拉伸，当宽度 或者 高度 铺满div盒子就不再进行拉伸了，可能有部分空白区域。<br/>百分比：50% 50%<br/>数字：100px 100px |
 | background-attachment | 背景附着           | scroll（背景滚动） / fixed（背景固定）                       |
 | background            | 简写               | 以空格隔开，书写顺序没有要求                                 |
+
+### 背景裁剪
+
+```css
+ background-clip: text;
+-webkit-text-fill-color: transparent //文本填充颜色为透明
+```
+
+
 
 ## 阴影
 
@@ -216,6 +264,10 @@ box-sizing：
 ### border
 
 ```js
+//线类型
+solid
+dashed
+dotted
 //1.圆角
 border-top-left-radius：左上角
 border-top-right-radius：右上角
@@ -255,12 +307,6 @@ auto:当一溢出时设置滚动条
  overflow: hidden;//超出的部分隐藏
  text-overflow: ellipsis;//文字用省略号替代超出的部分
 ```
-
-## line-height 
-
-​	line-height只作用于inline-block，iinline元素，line-height=上下半行距+font-size
-
-<img src="images/line-height.png"  />
 
 ## vertical-align
 
